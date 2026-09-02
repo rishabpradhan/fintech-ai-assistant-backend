@@ -19,7 +19,6 @@ public class UserMappers {
         }
         UserDetail user = new UserDetail();
         user.setEmail(userRequestDto.getEmail());
-        user.setCreatedAt(LocalDateTime.now());
         user.setMfaEnabled(false);
         user.setLoginAttempts(0);
         user.setOtpSecrect(null);
