@@ -20,7 +20,7 @@ public class UserAudit{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @JdbcTypeCode(SqlTypes.JSON)
+//    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "user_detail")
     private JsonNode userActivity;
 
