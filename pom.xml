@@ -24,6 +24,7 @@
 		<module>appilcation</module>
 		<module>user-mgmt</module>
 		<module>common-service</module>
+		<module>document</module>
 	</modules>
 	<packaging>pom</packaging>
 	<scm>

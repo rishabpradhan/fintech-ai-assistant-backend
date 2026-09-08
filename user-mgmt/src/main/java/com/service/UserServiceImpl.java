@@ -59,7 +59,6 @@ public class UserServiceImpl implements UserService{
     @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<APIResponse<Object>> createUser(UserLoginRequestDtos requestDtos, Errors errors) {
 
-        log.info("user data:{}",requestDtos);
         boolean exits = userRepository.existsByEmail(requestDtos.getEmail());
         if(exits){
             return new ResponseEntity<>(APIResponse.apiResponse(HttpStatusCode.CONFLICT.getCode(), Collections.emptyList(), Status.ERROR.getName(), "Invalid email or password"), HttpStatus.CONFLICT);
