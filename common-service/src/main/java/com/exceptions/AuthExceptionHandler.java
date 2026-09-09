@@ -52,4 +52,9 @@ public class AuthExceptionHandler {
     public ResponseEntity<APIResponse<?>> handleGenericException(Exception e){
         return new ResponseEntity<>(APIResponse.apiResponse(HttpStatusCode.NOT_FOUND.getCode(), Collections.emptyList(), Status.ERROR.getName(), "Error :" + e.getMessage()),HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(BusinessExceptions.FileValidationException.class)
+    public ResponseEntity<APIResponse<?>> handleFileValidationException(BusinessExceptions.FileValidationException e){
+        return new ResponseEntity<>(APIResponse.apiResponse(HttpStatusCode.BAD_GATEWAY.getCode(), Collections.emptyList(),Status.ERROR.getName(), "File validation failed"),HttpStatus.BAD_REQUEST);
+    }
 }

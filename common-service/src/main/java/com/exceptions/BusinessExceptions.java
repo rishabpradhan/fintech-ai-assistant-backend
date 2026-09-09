@@ -25,4 +25,10 @@ public class BusinessExceptions {
             super(message);
         }
     }
+
+    public static class FileValidationException extends RuntimeException{
+        public FileValidationException(String message){
+            super(message);
+        }
+    }
 }
