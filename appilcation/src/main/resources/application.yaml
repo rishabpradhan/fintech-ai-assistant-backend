@@ -64,6 +64,10 @@ spring:
 server:
   port: 8080
 
+# file storage
+app:
+  storage:
+    upload-dir : D:/document
 
 # ==================================
 # Logging
