@@ -69,6 +69,9 @@ app:
   storage:
     upload-dir : D:/document
 
+  ai-service:
+    base-url : "http://localhost:8000"
+
 # ==================================
 # Logging
 ## ==================================
