@@ -1,5 +1,6 @@
 package com.service;
 
+import com.json_utils.JsonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,16 +23,22 @@ public class FastApiClient {
 
     public void processDocument(UUID documentId, String filePath){
 
-        restClient.post()
+      var response =  restClient.post()
                 .uri(url + "/ai/process-document")
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(new ProcessDocumentRequest(documentId.toString(), filePath))
                 .retrieve()
-                .toBodilessEntity();
+                .body(ProcessDocumentRequest.class);
+
+      String apiResponse = JsonUtils.Json_xml_utils.writeValueAsString(response);
+
+      log.info("process document response:{}",apiResponse);
 
     }
 
     public void ask(String question){
+
+        log.info("question:{}",question);
 
         restClient.post()
                 .uri(url + "/ai/ask")
