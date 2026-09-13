@@ -30,7 +30,7 @@ public class DocumentServiceImpl implements DocumentService {
     private final FileStorageService fileStorageService;
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<APIResponse<Object>> uploadDocuments(MultipartFile file , Principal principal){
 
         try {
