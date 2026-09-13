@@ -31,4 +31,11 @@ public class BusinessExceptions {
             super(message);
         }
     }
+
+    public static class GeneralException extends RuntimeException{
+        public GeneralException(String message){
+            super(message);
+        }
+    }
+
 }

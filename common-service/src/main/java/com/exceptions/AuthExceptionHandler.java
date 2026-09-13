@@ -57,4 +57,10 @@ public class AuthExceptionHandler {
     public ResponseEntity<APIResponse<?>> handleFileValidationException(BusinessExceptions.FileValidationException e){
         return new ResponseEntity<>(APIResponse.apiResponse(HttpStatusCode.BAD_GATEWAY.getCode(), Collections.emptyList(),Status.ERROR.getName(), "File validation failed"),HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(BusinessExceptions.GeneralException.class)
+    public ResponseEntity<APIResponse<?>> handleGeneralException(BusinessExceptions.GeneralException e){
+
+        return new ResponseEntity<>(APIResponse.apiResponse(HttpStatusCode.INTERNAL_SERVER_ERROR.getCode(), Collections.emptyList(), Status.ERROR.getName(), "Internal Server Error"), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

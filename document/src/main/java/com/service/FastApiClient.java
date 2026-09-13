@@ -21,7 +21,7 @@ public class FastApiClient {
 
     private final RestClient restClient;
 
-    public void processDocument(UUID documentId, String filePath){
+    public void processDocument(Long documentId, String filePath){
 
       var response =  restClient.post()
                 .uri(url + "/ai/process-document")

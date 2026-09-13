@@ -16,11 +16,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "document")
-public class Document {
+public class Document extends AbstractEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "file_name")
     private String fileName;
@@ -35,27 +34,7 @@ public class Document {
     @Enumerated(EnumType.STRING)
     private DocumentStatus status;
 
+    @Column(name = "content_type")
     private String contentType;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "created_by")
-    private String createdBy;
-
-    @Column(name = "modified_at")
-    private LocalDateTime modifiedAt;
-
-    @Column(name = "modified_by")
-    private String modifiedBy;
-
-    @PrePersist
-    protected void onCreate(){
-        this.createdAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate(){
-        this.modifiedAt = LocalDateTime.now();
-    }
 }

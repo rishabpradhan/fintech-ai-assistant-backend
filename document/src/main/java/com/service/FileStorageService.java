@@ -1,5 +1,7 @@
 package com.service;
 
+import com.validators.FileValidator;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,13 +18,20 @@ import java.util.UUID;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class FileStorageService {
 
     @Value("${app.storage.upload-dir}")
     private String uploadDir;
 
+    private final FileValidator fileValidator;
+
     public String store(MultipartFile file) throws IOException {
+
         try{
+
+            fileValidator.fileValidate(file);
+
             Path dirPath = Paths.get(uploadDir).toAbsolutePath().normalize();
             Files.createDirectories(dirPath);
 
