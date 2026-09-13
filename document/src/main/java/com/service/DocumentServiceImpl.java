@@ -22,7 +22,6 @@ import java.util.Collections;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-
 public class DocumentServiceImpl implements DocumentService {
 
     private final FastApiClient fastApiClient;

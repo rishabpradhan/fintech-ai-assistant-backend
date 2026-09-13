@@ -1,51 +1,63 @@
 package com.service;
 
+import com.api_format.APIResponse;
+import com.enums.HttpStatusCode;
+import com.enums.Status;
 import com.json_utils.JsonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class FastApiClient {
 
-    @Value("${app.ai-service-baseiurl}")
+    @Value("${app.ai-service.base-url}")
     private String url;
 
     private final RestClient restClient;
 
     public void processDocument(Long documentId, String filePath){
 
-      var response =  restClient.post()
+        restClient.post()
                 .uri(url + "/ai/process-document")
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(new ProcessDocumentRequest(documentId.toString(), filePath))
                 .retrieve()
-                .body(ProcessDocumentRequest.class);
+                .toBodilessEntity();
 
-      String apiResponse = JsonUtils.Json_xml_utils.writeValueAsString(response);
+      //String apiResponse = JsonUtils.Json_xml_utils.writeValueAsString(response);
 
-      log.info("process document response:{}",apiResponse);
+
+  //    log.info("process document response:{}",apiResponse);
 
     }
 
-    public void ask(String question){
+    public ResponseEntity<APIResponse<?>> ask(String question){
 
         log.info("question:{}",question);
 
-        restClient.post()
+        var response = restClient.post()
                 .uri(url + "/ai/ask")
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(new AskRequest(question))
                 .retrieve()
                 .body(AskResponse.class);
+
+        String questionResponse = JsonUtils.Json_xml_utils.writeValueAsString(response);
+        log.info("Question response:{}", questionResponse);
+
+        return new ResponseEntity<>(APIResponse.apiResponse(HttpStatusCode.SUCCESS.getCode(), questionResponse, Status.SUCCESS.getName(), "Fast Api success"), HttpStatus.OK);
     }
 
 

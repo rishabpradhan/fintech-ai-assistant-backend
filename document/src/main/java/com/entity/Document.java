@@ -15,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "document")
+@Table(name = "documents")
 public class Document extends AbstractEntity{
 
     @Column(name = "name")
